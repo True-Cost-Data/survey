@@ -11,6 +11,6 @@ params:
 
 menu:
   main:
-    - name: "Onboarding"
-      url: "/survey/onboarding/"
+    - name: "Margin Reality Check"
+      url: "/survey/margin-reality-check/"
       weight: 1
