@@ -1,0 +1,77 @@
+{{ define "head" }}
+<style>
+  .survey-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .survey-header .icon { font-size: 1.8rem; }
+  .survey-header h1 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.2rem; }
+  .survey-header p { font-size: 0.8rem; color: var(--text-muted); }
+  .survey-meta { display: flex; gap: 0.5rem; margin-top: 0.4rem; flex-wrap: wrap; }
+  .badge { font-size: 0.65rem; padding: 0.18rem 0.55rem; border-radius: 20px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+  .badge-active { background: rgba(59,130,246,0.18); color: #60a5fa; }
+  .badge-draft  { background: rgba(148,163,184,0.15); color: #94a3b8; }
+  .badge-info   { background: rgba(255,255,255,0.06); color: var(--text-muted); }
+  .survey-embed {
+    width: 100%;
+    height: calc(100vh - 56px - 68px - 90px);
+    min-height: 500px;
+    border: none;
+  }
+  .survey-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 56px - 68px - 90px);
+    min-height: 500px;
+    gap: 1rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+  .survey-placeholder .ph-icon { font-size: 2.5rem; opacity: 0.4; }
+  .survey-placeholder code {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    color: #60a5fa;
+  }
+</style>
+{{ end }}
+
+{{ define "main" }}
+<div class="survey-header">
+  <div class="icon">{{ .Params.icon | default "📋" }}</div>
+  <div>
+    <h1>{{ .Title }}</h1>
+    <p>{{ .Params.description }}</p>
+    <div class="survey-meta">
+      <span class="badge {{ if eq .Params.status "active" }}badge-active{{ else }}badge-draft{{ end }}">
+        {{ .Params.status | default "draft" }}
+      </span>
+      {{ with .Params.audience }}<span class="badge badge-info">{{ . }}</span>{{ end }}
+      {{ with .Params.duration }}<span class="badge badge-info">~{{ . }}</span>{{ end }}
+    </div>
+  </div>
+</div>
+
+{{ if .Params.formbricks_survey_id }}
+  <iframe
+    class="survey-embed"
+    src="https://app.formbricks.com/s/{{ .Params.formbricks_survey_id }}"
+    title="{{ .Title }} survey">
+  </iframe>
+{{ else }}
+  <div class="survey-placeholder">
+    <div class="ph-icon">🔧</div>
+    <strong>Survey not yet connected</strong>
+    <p>Set <code>formbricks_survey_id</code> in the page frontmatter to activate this survey.</p>
+    <p>See <a href="https://github.com/True-Cost-Data/survey" style="color:#60a5fa;">True-Cost-Data/survey</a> for setup instructions.</p>
+  </div>
+{{ end }}
+{{ end }}

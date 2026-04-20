@@ -1,0 +1,28 @@
+baseURL: "https://true-cost-data.github.io/survey/"
+title: "TrueCost Surveys"
+languageCode: "en-us"
+enableRobotsTXT: true
+canonifyURLs: false
+
+params:
+  description: "Surveys for the TrueCost real-time cost visibility platform"
+  brand: "TrueCost"
+  formbricks_env_id: ""   # Set once you have your Formbricks environment ID
+
+menu:
+  main:
+    - name: "Customer Discovery"
+      url: "/survey/customer-discovery/"
+      weight: 1
+    - name: "Pilot Onboarding"
+      url: "/survey/pilot-onboarding/"
+      weight: 2
+    - name: "CEO Dashboard"
+      url: "/survey/role-ceo/"
+      weight: 3
+    - name: "CFO Dashboard"
+      url: "/survey/role-cfo/"
+      weight: 4
+    - name: "Feature Vote"
+      url: "/survey/feature-vote/"
+      weight: 5

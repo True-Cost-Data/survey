@@ -1,0 +1,76 @@
+{{ define "head" }}
+<style>
+  .hero {
+    padding: 3rem 1.5rem 2rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero h1 { font-size: 1.8rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .hero p { color: var(--text-muted); font-size: 0.95rem; max-width: 480px; margin: 0 auto; }
+  .surveys-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+    padding: 2rem 1.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .survey-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1.4rem;
+    text-decoration: none;
+    color: var(--text);
+    transition: border-color 0.15s, transform 0.15s;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .survey-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .survey-card .icon { font-size: 1.6rem; }
+  .survey-card h2 { font-size: 1rem; font-weight: 600; }
+  .survey-card p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
+  .survey-card .meta {
+    margin-top: auto;
+    padding-top: 0.75rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .badge {
+    font-size: 0.65rem;
+    padding: 0.18rem 0.55rem;
+    border-radius: 20px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .badge-active { background: rgba(59,130,246,0.18); color: #60a5fa; }
+  .badge-draft { background: rgba(148,163,184,0.15); color: #94a3b8; }
+  .badge-audience { background: rgba(255,255,255,0.06); color: var(--text-muted); }
+</style>
+{{ end }}
+
+{{ define "main" }}
+<div class="hero">
+  <h1>TrueCost Surveys</h1>
+  <p>Help shape the TrueCost platform. Each survey takes 3–8 minutes.</p>
+</div>
+<div class="surveys-grid">
+  {{ range where .Site.RegularPages "Type" "surveys" }}
+  <a class="survey-card" href="{{ .RelPermalink }}">
+    <div class="icon">{{ .Params.icon | default "📋" }}</div>
+    <h2>{{ .Title }}</h2>
+    <p>{{ .Params.description }}</p>
+    <div class="meta">
+      <span class="badge {{ if eq .Params.status "active" }}badge-active{{ else }}badge-draft{{ end }}">
+        {{ .Params.status | default "draft" }}
+      </span>
+      {{ with .Params.audience }}<span class="badge badge-audience">{{ . }}</span>{{ end }}
+      {{ with .Params.duration }}<span class="badge badge-audience">~{{ . }}</span>{{ end }}
+    </div>
+  </a>
+  {{ end }}
+</div>
+{{ end }}
