@@ -11,18 +11,6 @@ params:
 
 menu:
   main:
-    - name: "Customer Discovery"
-      url: "/survey/customer-discovery/"
+    - name: "Onboarding"
+      url: "/survey/onboarding/"
       weight: 1
-    - name: "Pilot Onboarding"
-      url: "/survey/pilot-onboarding/"
-      weight: 2
-    - name: "CEO Dashboard"
-      url: "/survey/role-ceo/"
-      weight: 3
-    - name: "CFO Dashboard"
-      url: "/survey/role-cfo/"
-      weight: 4
-    - name: "Feature Vote"
-      url: "/survey/feature-vote/"
-      weight: 5
